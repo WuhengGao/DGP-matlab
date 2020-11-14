@@ -17,7 +17,7 @@ b(B,1)=sin(r);
 b(B,2)=cos(r);
 
 %in boundary:Aii=1,Aij=0;
-%not in boundary:Aij=1(i,j in a triangle),Aii=sum(Aij)
+%not in boundary:Aij=-1(i,j in a triangle),Aii=-sum(Aij)
 A=sparse(t, t(:, [2,3,1]), ones(nf,3), nv, nv);
 A(B,:)=0;
 sumw=sum(A,2);
