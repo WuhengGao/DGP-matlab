@@ -1,5 +1,4 @@
 function [uv] = tutte(x,t)
-nf = size(t, 1);
 nv = size(x, 1);
 [B,~]=findBoundary(x,t);
 B=B';
@@ -15,11 +14,12 @@ b(B,2)=cos(r);
 
 %in boundary:Aii=1,Aij=0;
 %not in boundary:Aij=-1(i,j in a triangle),Aii=-sum(Aij)
-A=sparse(t, t(:, [2,3,1]), ones(nf,3), nv, nv);
+A=sparse(t, t(:, [2,3,1]), true, nv, nv);
+A=A|A';
+dA=-sum(A,2);
+dA(B,:)=1;
 A(B,:)=0;
-sumw=sum(A,2);
-sumw(B)=1;
-A=-A+diag(sumw);
+A= spdiags(dA, 0, double(A));
 
 uv=A\b;
 end
