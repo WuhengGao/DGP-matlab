@@ -1,9 +1,6 @@
 %%load mesh
 [x,t] = readObj('D:\mesh\ball.obj');
-[B,~]=findBoundary(x,t);
-if(B)
-    warning('mesh has boundary!');
-end
+
 nf = size(t, 1);
 nv = size(x, 1);
 
